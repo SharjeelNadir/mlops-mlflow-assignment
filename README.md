@@ -6,7 +6,6 @@
 This project demonstrates a comprehensive **MLOps pipeline** using industry-standard tools and practices. The assignment showcases the complete machine learning lifecycle, from data versioning to model training, evaluation, and continuous integration.
 
 **Project Name:** mlops-mlflow-assignment  
-**Student:** Muhammad Sharjeel Nadir (Roll No: 21i-XXXX)  
 **Dataset:** Boston Housing Dataset  
 **Objective:** Build an end-to-end ML pipeline with version control, experiment tracking, and CI/CD automation.
 
@@ -302,5 +301,3 @@ For questions or improvements, refer to the project wiki or submit an issue on G
 
 ---
 
-**Last Updated:** 2024  
-**Author:** Muhammad Sharjeel Nadir
