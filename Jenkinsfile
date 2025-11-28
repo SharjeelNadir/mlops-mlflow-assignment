@@ -2,21 +2,47 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
+                echo 'Checking out code...'
                 checkout scm
             }
         }
-        stage('Install Deps') {
+
+        stage('Setup Python Environment') {
             steps {
-                sh 'python -m venv venv'
-                sh '. venv/bin/activate && pip install -r requirements.txt'
+                echo 'Creating virtual environment and installing dependencies...'
+                bat '''
+                    python -m venv venv
+                    call venv\\Scripts\\activate
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                '''
             }
         }
-        stage('Run Pipeline') {
+
+        stage('Pipeline Compilation (Run MLflow Pipeline)') {
             steps {
-                sh '. venv/bin/activate && python pipeline.py'
+                echo 'Running pipeline.py to validate workflow...'
+                bat '''
+                    call venv\\Scripts\\activate
+                    python pipeline.py
+                '''
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'Archiving artifacts...'
+            archiveArtifacts artifacts: 'artifacts/**', fingerprint: true
+        }
+        success {
+            echo 'Jenkins Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Jenkins Pipeline failed.'
         }
     }
 }
